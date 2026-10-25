@@ -191,7 +191,135 @@
         </div>
       </div>
       <div class="row thin-outline">
-        
+        <div class="col-4">
+          Maximum HP: 
+          <input
+              class="w-100 h2"
+              type="number"
+              v-model="sheetStore.hitPointMax"
+          >
+        </div>
+        <div class="col-4">
+          Current HP:
+          <input
+              class="w-100 h2"
+              type="number"
+              v-model="sheetStore.hitPointCurrent"
+          >
+        </div>
+        <div class="col-4">
+          Temporary HP:
+          <input
+              class="w-100 h2"
+              type="number"
+              v-model="sheetStore.hitPointTemp"
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 thin-outline">
+          <p class="text-center p-0 m-0">
+            Hit Dice
+          </p>
+          Max:
+          <input
+              class="w-100"
+              type="number"
+              v-model="sheetStore.hitDiceMax"
+          >
+          Current:
+          <input
+              class="w-100"
+              type="number"
+              v-model="sheetStore.hitDiceCurrent"
+          >
+          Hit Dice Sides:
+          <input
+              class="w-100"
+              type="number"
+              v-model="sheetStore.hitDiceSides"
+          >
+        </div>
+        <div class="col-6 thin-outline">
+          <p class="text-center p-0 m-0">
+            Saving Throws
+          </p>
+          <br />
+          <!--TODO: some time in the future, make these fancier than just number inputs-->
+          Successes:
+            <input
+                class="w-100"
+                type="number"
+                v-model="sheetStore.deathSaveSuccesses"
+            >
+          <br />
+          Failures:
+            <input 
+                class="w-100"
+                type="number"
+                v-model="sheetStore.deathSaveFailures"
+            >
+        </div>
+      </div>
+      <div class="row thin-outline">
+        <p class="text-center p-0 m-0">
+          Attacks and Spellcasting
+        </p>
+        <br />
+
+      </div>
+      <div class="row thin-outline">
+        <p class="text-center p-0 m-0">
+          Equipment
+        </p>
+        <br />
+        <div class="row">
+          <div class="col-4 thin-outline">
+            <div class="pb-3">
+              Copper
+              <input
+                  class="w-100"
+                  type="number"
+                  v-model="sheetStore.copperPieces"
+              >
+            </div>
+            <div class="pb-3">
+              Silver
+              <input
+                  class="w-100"
+                  type="number"
+                  v-model="sheetStore.silverPieces"
+              >
+            </div><div class="pb-3">
+              Electrum
+              <input
+                  class="w-100"
+                  type="number"
+                  v-model="sheetStore.electrumPieces"
+              >
+            </div><div class="pb-3">
+              Gold
+              <input
+                  class="w-100"
+                  type="number"
+                  v-model="sheetStore.goldPieces"
+              >
+            </div><div class="pb-3">
+              Platnum
+              <input
+                  class="w-100"
+                  type="number"
+                  v-model="sheetStore.platnumPieces"
+              >
+            </div>
+          </div> 
+          <div class="col-8 thin-outline">
+            Items
+            <br />
+            TODO: whip something up for items here
+          </div>
+        </div>
+      
       </div>
     </div>
     <div class="col-4">
@@ -218,6 +346,17 @@
           Flaws
         </p>
         <string-list :list="sheetStore.flaws" />
+      </div>
+      <div class="row thin-outline">
+        <p class="text-center p-0 m-0">
+          Features & Traits
+        </p>
+        <textarea
+            rows="22" 
+            cols="18" 
+            placeholder="Please type here..." 
+            v-model="sheetStore.featuresAndTraits" 
+        />
       </div>
       <br/>
     </div>
@@ -265,9 +404,6 @@ export default defineComponent({
   },
   setup() {
     return { sheetStore: use5eSheetStore() }
-  },
-  computed: {
-    
   },
   methods: {
     toggleSavingThrow(event:Event, throwType:string) {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { ModalTarget, ModalOverlay } from '@kolirt/vue-modal'
 </script>
 
 <template>
@@ -30,6 +31,10 @@ import { RouterLink, RouterView } from 'vue-router'
   </header> 
 
   <RouterView />
+
+  <ModalTarget group="default">
+    <ModalOverlay class="overlay" />
+  </ModalTarget>
 </template>
 
 <style>

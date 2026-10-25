@@ -74,7 +74,7 @@ export enum Alignment {
   lawfulEvil = 'Lawful Evil'
 }
 
-type Effector = {
+interface Effector {
    id: string | number;
    name: string;
    desc: string;
@@ -95,7 +95,7 @@ type Effector = {
  *     this flavor of effector will not be applied globally, but will be prominent enough if one's looking at the info for the item you're using such that a player can know to use this
  *     when the condition does apply
  */
-type Weapon = {
+interface Weapon {
   name: string;
   desc: string;
   properties: Map<WeaponProperties, string>; // will be properties like finesse etc. and optional description if you want to write that down.
@@ -108,7 +108,7 @@ type Weapon = {
   equipped: boolean;
 };
 
-type Item = {
+interface Item  {
   name: string;
   desc: string;
   effectors: Array<string>;
@@ -117,39 +117,39 @@ type Item = {
 
 // Stuff for the character page
 
-type Feature = {
+interface Feature {
   level: number;
   title: string;
   description: string;
   featureFunction: any; //TODO: create specific types for like, charge bars or list of spells known (static) vs list of spells known (otherwise)
 }
 
-type ClassFeatures = {
+interface ClassFeatures {
   name: string;
   features: Array<Feature>;
   subclassName: string;
   subclassFeatures: Array<Feature>;
 }
 
-type RaceFeatures = { 
+interface RaceFeatures { 
   name: string;
   features: Array<Feature>;
   subRaceName: string;
   subRaceFeatures: Array<Feature>;
 }
 
-type BackgroundFeatures = {
+interface BackgroundFeatures {
   name: string;
   features: Array<Feature>;
 }
 
-type Feats = {
+interface Feats {
   features: Array<Feature>;
 }
 
 // Stuff for spellcasting
 
-type Cantrip = {
+export interface Cantrip {
   name: string;
   schoolOfMagic: string;
   description: string;
@@ -158,21 +158,21 @@ type Cantrip = {
   duration: string;
   components: Array<string>;
   classesKnown: Array<string>;
-  effect: SpellEffect | SpellAttackEffect;
+  effect: SpellEffect;
   // TODO: the rest of this
 }
 
-type Spell = {
+interface Spell {
   name: string;
   // TODO the rest of this
 }
 
-type SpellEffect = {
+export interface SpellEffect {
   todo: string;
   // TODO: catch all for a bunch of the spell effects that aren't attacks
 }
 
-type SpellAttackEffect = {
+export interface SpellAttackEffect extends SpellEffect{
   damageAttributes: Array<object>; // object will be damage type, and -1 if disadvantage, implied 0 if normal, 1 if advantage
   damageType: string;
   damageDieType: DieType;
@@ -336,7 +336,7 @@ export const use5eSheetStore = defineStore('5eSheet', {
 
     copperPieces: 0,
     silverPieces: 0,
-    ePieces: 0,
+    electrumPieces: 0,
     goldPieces: 0,
     platnumPieces: 0,
 
@@ -360,6 +360,8 @@ export const use5eSheetStore = defineStore('5eSheet', {
     bonds: new Array<string>(),
     flaws: new Array<string>(),
 
+    featuresAndTraits: '',
+
     //page 2
     age: '',
     height: '',
@@ -374,6 +376,8 @@ export const use5eSheetStore = defineStore('5eSheet', {
     backstory: '',
     allies: new Array<string>(),
     organizations: new Array<string>(),
+    //TODO: treatures should probably be something more exciting than string, but idc abt that
+    // so that is a later me problem. 
     treasure: new Array<string>(),
 
     //page 3
